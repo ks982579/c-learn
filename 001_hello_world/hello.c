@@ -2,7 +2,9 @@
 #include <stdlib.h>
 
 int main(void) {
-  puts("Hello, world!");
+  if(puts("Hello, world!") == EOF){
+    return EXIT_FAILURE;
+  }
   return EXIT_SUCCESS;
 }
 
