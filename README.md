@@ -200,4 +200,61 @@ int max(int a, int b) {
 
 Ternary operator `?` is explained later. 
 
-**Derived Types** p.25
+**Derived Types** are types that are constructed from other types. Think pointers, arrays, structures, etc...
+
+You can have a pointer to _void_, `void *vp;`?
+
+You can also do this...
+
+```c
+int i = 42;
+int *ip = &i;
+ip = &*ip;
+```
+
+That is trying to find the reference of a dereferenced value. Basically, they cancel out. 
+
+Note: bad things happen if pointers are not pointing to a valid object or function. 
+
+An **array** is a _contiguously_ allocated sequence of objects that all have the same element type. I would have went with _data_ type, but the book says "element". I think because each value in an array is called an _element_. An array's type is denoted by the type of its elements and the number of elements.
+
+```c
+int arr[11];
+float *afp[17];
+```
+
+It gets strange. `arr` apparently already represents the memory address, which is why you need to provide an index to get a value. As such, asking for the memory address at say index 5, `arr[5]` is the same as `arr + 5`. 
+
+```c
+int arr[4][2]
+```
+
+That's multidimensional arrays. Apparently C is good enough to multiply sizes of the array to store values in memory in one big line. 
+
+The `typedef` keyword creates an alias for an existing type. It's strange, and the C standard reserves identifier that end in `_t`. So, doing that may cause collisions. 
+
+The **Structure** type contains sequentially allocated member objects. Members have their own name and type. Use the _structure member_ `.` (dot) operator to reference property values of the structure. And, use the pointer `->` operator to reference members if you have pointer to a structure. That's interesting.
+
+```c
+#include <string.h>
+
+struct dog {
+    char name[20];
+    int age;
+    char error[100];
+} doug, *doug_p
+
+doug.age = 5;
+strcpy(doug.name, "Doug");
+strcpy(doug.error, "Keyboard Interruption");
+
+doug_p = &doug; // we are storing the pointer
+
+doug->age = 5; // store age via pointer
+strcpy(doug->name, "Doug");
+strcpy(doug->error, "Keyboard Interruption");
+```
+
+Not sure if the book forgot to mention, but [GeeksForGeeks](https://www.geeksforgeeks.org/strcpy-in-c/) shows that the `char* strcpy(char* destination, char* source)` is how we assign strings. And strings appear to be an array of characters. 
+
+Sorry, there's also apparently this _null_ character we write as `'\0'`, that signals the termination of the string. Use `%s` to print a string and `%%` to print a "%", in case you ever need to. 
